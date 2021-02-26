@@ -2,53 +2,30 @@ package main
 
 import (
     "fmt"
-    "bufio"  
-    "os"
-    "io"
-    "strings"
-    "strconv"
 )
 
-func sumStringSlice(nums []string) (int, error) {
+func sumIntSlice(nums []int) int {
     total := 0
-    
-    for i := 0; i < len(nums); i++ {
-        num, err := strconv.Atoi(nums[i])
-        if err != nil {
-            return -1, err
-        }
+    for _, num := range nums {
         total += num
     }
     
-    return total, nil
+    return total
 }
 
-func readOneLineOfNums() ([]string, error) {
-    reader := bufio.NewReader(os.Stdin)
-    nums_str, err := reader.ReadString('\n')
-    if err != io.EOF {
-        return nil, err;
+func readOneLineOfNums(length int) []int {
+    nums := make([]int, length)
+    for i := 0; i < length; i++ {
+        fmt.Scanf("%d", &nums[i])
     }
-    return strings.Split(nums_str, " "), nil
+
+    return nums
 }
 
 func main() {
-    var i int;
-    _, err := fmt.Scanf("%d", &i)
-    if err != nil {
-        return;
-    }
-    
-    nums, err := readOneLineOfNums()
-    if err != nil {
-        return;
-    }
-    
-    total, err := sumStringSlice(nums)
-    if err != nil {
-        return;
-    }
-    
+    var i int
+    fmt.Scanf("%d", &i)
+    nums := readOneLineOfNums(i)
+    total := sumIntSlice(nums)
     fmt.Print(total)
 }
-
